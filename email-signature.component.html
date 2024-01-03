@@ -1,0 +1,71 @@
+<div class="card mb-5 mb-xl-10">
+    <div  class="card-header border-0 cursor-pointer" role="button" (click)="email_signature.toggle()" [attr.aria-expanded]="!isCollapsedEmailSignature" >
+      <div class="card-title w-100 d-flex justify-content-between align-items-start pt-5">
+        <div class="d-flex flex-column">
+          <h3 class="fw-bolder m-0">Email Signature</h3>
+        </div>
+        <div class="chevron m-0 float-right">
+          <span
+            *ngIf="isCollapsedEmailSignature === true"
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr072.svg'"
+            class="svg-icon svg-icon-3x svg-icon-primary"
+          ></span>
+          <span
+            *ngIf="isCollapsedEmailSignature === false"
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr073.svg'"
+            class="svg-icon svg-icon-3x svg-icon-primary"
+          ></span>
+        </div>
+      </div>
+    </div>
+    <div #email_signature="ngbCollapse" [(ngbCollapse)]="isCollapsedEmailSignature">
+      <div class="card-body border-top pt-4 text-center justify-content-between d-flex flex-wrap align-items-center mb-10"  *ngIf="user$ | async as _user">
+        <div class="overflow-auto pt-5 mb-5 me-5" *ngIf="employeeField$ | async as employees;">
+          <table role="button" (click)="copyTable('template-html')" id="template-html" cellspacing="0" cellpadding="0" style="width:864px; height:259px; background-color: gray; background-image: url(https://esig.clarkoutsourcing.com/template-img/esigbgnew.png);  background-repeat: no-repeat; background-position: center; background-size: cover; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.2));">
+            <tr>
+              <td colspan="2" style=" text-align: end; position: relative; vertical-align: bottom;">
+                <div style=" background-image: url(https://esig.clarkoutsourcing.com/template-img/center-logo-170.png); background-position: 85% center; padding-top:4px; padding-right: 28px; background-repeat: no-repeat; min-height: 157px;" >
+                  <img [src]="_user.profile_picture !== null ? _user.profile_picture : './assets/media/avatars/default-profile-picture.jpg'" style="border: 4px solid #88151a;border-radius:50%; background:white; width: 140px; height: 140px;">
+                </div>
+              </td>
+              <td style="width: 65%; vertical-align: bottom; padding-bottom: 4px;">
+                <table style="width: 100%; text-align: left">
+                    <tbody><tr><th class="staff-name" style="text-align:left; display: flex; font-family: 'Poppins', sans-serif; font-size: 1.6rem; line-height: 22px; color:#71202d;"> {{ _user.first_name }} {{ _user.last_name }}</th></tr>
+                      <tr><th class="staff-position" style="text-align:left; display: flex; font-family: 'Poppins', sans-serif; padding-top:5px; font-size: 1.2rem; color:#71202d; font-weight: 400;"> {{ removePrefix(employees.designation) }}</th></tr>
+                      <tr><th class="staff-phone" style="text-align:left; display: flex; font-family: 'Poppins', sans-serif; font-size: .9rem; color:#11477c;padding-top: 2px; line-height: 22px; font-weight: 400;"><img width="20" src="https://esig.clarkoutsourcing.com/template-img/phone.png" style="margin-right: 5px;">
+                          <ng-container *ngFor="let record of employees.employee_record">
+                            <ng-container *ngIf="record.code === 'mobile'">
+                              {{ record.value.toString() }}
+                            </ng-container>
+                          </ng-container>
+                        </th>
+                      </tr>
+                      <tr><th class="staff-email" style="text-align:left; display: flex; font-family: 'Poppins', sans-serif; font-size: .9rem; color:#11477c; line-height: 22px; font-weight: 400; padding-top:2px; padding-bottom: 2px;"><img width="20" src="https://esig.clarkoutsourcing.com/template-img/email.png" style="margin-right: 5px;"> <a style="text-decoration: none !important; color:#11477c; " href="mailto:arnold@clarkstaff.com">{{ _user.email }}</a></th></tr>
+                      <tr><th class="staff-skype" style="text-align:left; display: flex; font-family: 'Poppins', sans-serif; font-size: .9rem; color:#11477c; line-height: 22px; font-weight: 400;"><img width="20" src="https://esig.clarkoutsourcing.com/template-img/skype.png" style="margin-right: 5px;">
+                          <ng-container *ngFor="let record of employees.employee_record">
+                            <ng-container *ngIf="record.code === 'skype_id'">
+                              {{ record.value.toString() }}
+                            </ng-container>
+                          </ng-container>  
+                        </th>
+                      </tr>
+                    </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr><td colspan="3" style="text-align: right; padding-bottom: 10px; overflow: hidden;"><a style="color:#fff; text-decoration: none; background-color: #71202d;     font-family: 'Poppins', sans-serif; padding: 7px 20px; font-size: 12px; border-top-left-radius: 15px; border-bottom-left-radius: 15px;" href="https://streaklinks.com/BfimvOWv743qdNv1PAN1TyAj/https%3A%2F%2Fairtable.com%2FshroBsQFsCWhNVZoI" target="_blank" rel="noopener">How did we COmmunicate? Let us know!</a></td></tr>
+            <tr style="height: 25px; position: relative; font-family: 'Poppins', sans-serif;">
+              <td style="width: 25%; text-align: left; padding-left: 10px;">
+                <p style="color: #fff; text-decoration:none !important; position: relative; z-index: 3; font-size: 9px; font-weight: 400;">www.clarksoutsourcing.com</p>
+              </td>
+              <td colspan="2" style=" text-align: right; padding-right: 10px; font-weight: 600; font-size: 10px; color: #88151a; position: absolute; right: 0; bottom: 3px;">&nbsp; <span style="color:#0d4b80;">US:</span>+1-727-601-0091&nbsp;|&nbsp;<span style="color:#0d4b80;">UK:</span>+44-204-586-3884&nbsp;|&nbsp;<span style="color:#0d4b80;">AUS:</span>+61-279-087-949&nbsp;|&nbsp;<span style="color:#0d4b80;">PH:</span>+0286727883 &nbsp;|&nbsp;<span style="color:#0d4b80;">Toll-free:</span>+1-800-373-5589&nbsp;
+              </td>
+            </tr>
+          </table>
+        </div>
+        <button class="btn btn-light btn-active-light-primary" (click)="copyTable('template-html')"> Copy Email Signature </button>
+      </div>
+    </div>
+    
+  </div>
+  
